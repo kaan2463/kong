@@ -1,0 +1,19 @@
+{
+    "manifest_version": 2,
+
+    "icons":{
+        "80":"favicon.png"
+    },
+    "name": "KoNG",
+    "description": "Github EntERtaiNment TooL",
+    "version": "1.0",
+  
+    "browser_action": {
+     "default_popup": "kong.html"
+    },
+    "permissions": [
+        "tabs",
+        "http://*/*",
+        "https://*/*"
+    ]
+  }
