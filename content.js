@@ -1,4 +1,12 @@
 chrome.runtime.onMessage.addListener(function(request) {
+
+    //todo kaan: will be placed at a better place!
+    
+    if(window.location.hostname !== 'github.com'){
+        alert("You must be at page where days grid is!!\n ex: github.com/kaan2463");
+        return;
+    }
+
     if(request.action === 'display') {
         display(request.message);
     }else if(request.action === 'clear'){ 
@@ -11,6 +19,13 @@ var charSet="ABCDEFGHIJKLMNOPRSTUVYZ";
 var timeInt;
 
 function display(msg){
+
+    var days=document.querySelectorAll('g rect');
+    if(days.length < 360){
+        alert("You must be at page where days grid is!!\n ex: github.com/kaan2463");
+        return;
+    }
+
     clear();
     var msg_str=""+msg;
    
@@ -25,13 +40,10 @@ function display(msg){
     
     timeInt = setInterval(function(){
         
-        console.log("heyy",shift);
-
         if(shift == msg_length){
             shift = 0;
         }
 
-        var days=document.querySelectorAll('g rect');
         for(var i=0;i<days.length;i++){
             days[i].setAttribute("data-level",0);
         }
