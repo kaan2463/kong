@@ -20,7 +20,7 @@ var timeInt;
 
 function display(msg){
 
-    var days=document.querySelectorAll('g rect');
+    var days=document.querySelectorAll('td.ContributionCalendar-day');
     if(days.length < 360){
         alert("You must be at page where days grid is!!\n ex: github.com/kaan2463");
         return;
@@ -44,9 +44,12 @@ function display(msg){
             shift = 0;
         }
 
+
         for(var i=0;i<days.length;i++){
             days[i].setAttribute("data-level",0);
         }
+
+
 
         for(var i=1 ;i<52;i++){
             index = (shift+i) % msg_length;
@@ -56,7 +59,8 @@ function display(msg){
             //space character
             if(msg_str.charAt(index/(LETTER_W+LETTER_SPACE))==" "){
                 for(var j=0;j<LETTER_H;j++){
-                    document.querySelectorAll('g g')[i].getElementsByTagName('rect')[j].setAttribute("data-level",0);
+                    document.getElementById('contribution-day-component-'+j+'-'+i).setAttribute("data-level",0);
+                    //days[i*7+j].setAttribute("data-level",0);
                 }
                 continue;
             }
@@ -64,14 +68,14 @@ function display(msg){
             if(!charSet.includes(msg_str.charAt(index/(LETTER_W+LETTER_SPACE)))){
                 for(var j=0;j<LETTER_H;j++){
                     if(this["letter_UKNOWN"][j][index%(LETTER_W+LETTER_SPACE)]){
-                        document.querySelectorAll('g g')[i].getElementsByTagName('rect')[j].setAttribute("data-level",3);
+                        document.getElementById('contribution-day-component-'+j+'-'+i).setAttribute("data-level",3);
                     }
                 }
                 continue;
             }
             for(var j=0;j<LETTER_H;j++){
                 if(this["letter_"+msg_str.charAt(index/(LETTER_W+LETTER_SPACE))][j][index%(LETTER_W+LETTER_SPACE)]){
-                    document.querySelectorAll('g g')[i].getElementsByTagName('rect')[j].setAttribute("data-level",3);
+                    document.getElementById('contribution-day-component-'+j+'-'+i).setAttribute("data-level",3);
                 }
             }
         }
@@ -84,7 +88,7 @@ function clear(){
     if(timeInt != undefined){
         clearInterval(timeInt);
     }
-    var days=document.querySelectorAll('g rect');
+    var days=document.querySelectorAll('td.ContributionCalendar-day');
     for(var i=0;i<365;i++){
         days[i].setAttribute("data-level",0);
     }

@@ -1,8 +1,16 @@
 document.addEventListener('DOMContentLoaded', function () {
 
-    chrome.tabs.executeScript(null, {
-        file: "content.js"
+    chrome.tabs.query({active: true, currentWindow: true}).then(([tab]) => {
+
+      chrome.scripting.executeScript(
+        {
+          target: {tabId: tab.id},
+          files: ['content.js'],
+        });
     });
+
+
+
 
     document.getElementById('msg_btn').addEventListener("click", fireClick,false);
     document.getElementById('clr_btn').addEventListener("click", fireClick,false);
